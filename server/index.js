@@ -10,11 +10,8 @@ app.use(cors());
 const posts = require('./routes/api/posts');
 app.use('/api/posts',posts);
 
-if(process.env.NODE_ENV === 'production' ){
-    app.use(express(__dirname + '/public' ));
-    app.get(/.*/,(req,res) => res.sendFile(__dirname + '/public/index.html'));
-}
-
-const port =  process.env.PORT || 5000
-
-app.listen(port, () => console.log(`server is running on ${port}`));
+// start server
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const server = app.listen(port, function () {
+    console.log('Server listening on port ' + port);
+});
